@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16222e;
+    --ink-soft: #4d6270;
+
+    --labs: #1c542f;
+    --labs-ink: #e2f2e6;
+    --courses: #1c4658;
+    --courses-ink: #e4edf2;
+    --podcasts: #271c58;
+    --podcasts-ink: #ebe8f5;
+    --other: #541c25;
+    --other-ink: #f5e6e8;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: linear-gradient(180deg, #8bb8e8 0%, #5c8fcb 30%, #2f5f9c 60%, #123a66 85%, #081d38 100%);
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink);
+    min-height: 100vh;
+    padding-bottom: 70px;
+  }
+
+  .wrap { max-width: 620px; margin: 0 auto; padding: 0 16px; }
+
+  header.page-head {
+    padding: 44px 0 14px;
+  }
+  header.page-head h1 {
+    font-weight: 800;
+    font-size: 2.6rem;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  header.page-head h1 .cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 0.85em;
+    background: var(--ink);
+    margin-left: 4px;
+    animation: blink 1.1s steps(1) infinite;
+    vertical-align: -0.1em;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  header.page-head p.sub {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin: 14px 0 0;
+    max-width: 50ch;
+    line-height: 1.6;
+  }
+
+  .tabs-outer {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 14px 0 16px;
+    background: linear-gradient(180deg, rgba(139,184,232,0.94) 70%, rgba(139,184,232,0));
+    margin: 0 -16px;
+  }
+  .tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 0 16px;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: 0 0 auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 0.78rem;
+    color: var(--ink);
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(22,34,46,0.15);
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tab:hover { background: rgba(255,255,255,0.85); }
+  .tab.active {
+    background: var(--ink);
+    color: #eef7ff;
+    border-color: var(--ink);
+  }
+
+  .items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .card {
+    display: none;
+    border-radius: 10px;
+    padding: 16px 18px 18px;
+    position: relative;
+    border: 1px solid rgba(22,34,46,0.12);
+    box-shadow: 0 6px 16px rgba(22,60,90,0.10);
+  }
+  .card.show { display: block; }
+
+  .card .kind {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+    opacity: 0.85;
+  }
+  .card .kind::before { content: '# '; }
+
+  .card h3 {
+    font-weight: 700;
+    font-size: 1.12rem;
+    line-height: 1.25;
+    margin: 0 0 8px;
+  }
+  .card h3::before { content: '> '; opacity: 0.55; }
+
+  .card .link-box {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #16222e;
+    background: rgba(255,255,255,0.82);
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 6px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+  }
+  .card .link-box::before { content: '$ '; opacity: 0.6; }
+  .card .link-box:hover { background: rgba(255,255,255,1); text-decoration: underline; }
+
+  .card p.note {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .placeholder-flag {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    padding: 1px 8px;
+    border-radius: 20px;
+    margin-left: 8px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid currentColor;
+  }
+
+  footer {
+    text-align: center;
+    color: #eaf3ff;
+    font-size: 0.74rem;
+    margin-top: 40px;
+    line-height: 1.7;
+  }
+  footer::before { content: '# '; }
+
+  @media (max-width: 400px) {
+    header.page-head h1 { font-size: 2rem; }
+    .card h3 { font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page-head">
+    <h1>learning_board<span class="cursor"></span></h1>
+    <p class="sub">Hands-on labs, courses, and podcasts worth working through.</p>
+  </header>
+
+  <div class="tabs-outer">
+    <div class="tabs">
+      <button class="tab active" data-filter="all">--all</button>
+      <button class="tab" data-filter="labs">--labs</button>
+      <button class="tab" data-filter="courses">--courses</button>
+      <button class="tab" data-filter="podcasts">--podcasts</button>
+      <button class="tab" data-filter="other">--other</button>
+    </div>
+  </div>
+
+  <div class="items" id="items"></div>
+
+  <footer>
+    Links open in a new tab. Update the RESOURCES list in the page source to add, remove, or reorder items.
+  </footer>
+
+</div>
+
+<script>
+  /* =========================================================
+     RESOURCES
+     Add new entries here. cat must be one of:
+     'labs', 'courses', 'podcasts', 'other'
+     Set placeholder: true to show a "swap me out" flag on
+     entries that still need real details filled in.
+     ========================================================= */
+  const RESOURCES = [
+    {
+      cat: 'labs',
+      kind: 'Hands-On Lab',
+      title: 'TryHackMe',
+      link: 'https://tryhackme.com',
+      note: 'Guided rooms for OSINT, web exploitation, and SOC analyst paths. After finishing a room, write up notes in your own words rather than just moving to the next one.',
+    },
+    {
+      cat: 'labs',
+      kind: 'Hands-On Lab',
+      title: 'OverTheWire',
+      link: 'https://overthewire.org/wargames/',
+      note: 'Wargames like Bandit and Natas for raw Linux and web fundamentals, no hand-holding the way TryHackMe has. Good for building real command-line comfort.',
+    },
+    {
+      cat: 'courses',
+      kind: 'Course',
+      title: 'edX course (swap this out)',
+      link: 'https://www.edx.org',
+      note: 'Replace with the actual course title and direct link once you pick one.',
+      placeholder: true,
+    },
+    {
+      cat: 'podcasts',
+      kind: 'Podcast Episode',
+      title: 'Podcast episode (swap this out)',
+      link: '#',
+      note: 'Replace with the actual episode title and link once you pick one.',
+      placeholder: true,
+    },
+  ];
+
+  const CAT_INK = { labs: 'var(--labs-ink)', courses: 'var(--courses-ink)', podcasts: 'var(--podcasts-ink)', other: 'var(--other-ink)' };
+
+  function linkDisplay(url) {
+    try {
+      const u = new URL(url);
+      return u.hostname.replace(/^www\./, '') + (u.pathname !== '/' ? u.pathname : '');
+    } catch (e) {
+      return url === '#' ? 'add-link-here' : url;
+    }
+  }
+
+  function renderItems() {
+    const container = document.getElementById('items');
+    container.innerHTML = '';
+
+    RESOURCES.forEach(r => {
+      const card = document.createElement('div');
+      card.className = 'card show';
+      card.dataset.cat = r.cat;
+      card.style.background = `var(--${r.cat})`;
+      card.style.color = CAT_INK[r.cat];
+
+      card.innerHTML = `
+        <div class="kind">${r.kind}${r.placeholder ? '<span class="placeholder-flag">placeholder</span>' : ''}</div>
+        <h3>${r.title}</h3>
+        <a class="link-box" href="${r.link}" target="_blank" rel="noopener noreferrer">${linkDisplay(r.link)}</a>
+        <p class="note">${r.note}</p>
+      `;
+      container.appendChild(card);
+    });
+
+    applyFilter('all');
+  }
+
+  function applyFilter(filter) {
+    document.querySelectorAll('.card').forEach(card => {
+      const match = filter === 'all' || card.dataset.cat === filter;
+      card.classList.toggle('show', match);
+    });
+  }
+
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      applyFilter(tab.dataset.filter);
+    });
+  });
+
+  renderItems();
+</script>
+
+</body>
+</html>
