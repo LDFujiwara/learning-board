@@ -17,9 +17,7 @@
     --courses-ink: #e4edf2;
     --media: #271c58;
     --media-ink: #ebe8f5;
-    --other: #541c25;
-    --other-ink: #f5e6e8;
-  }
+    
 
   * { box-sizing: border-box; }
 
@@ -204,8 +202,7 @@
       <button class="tab" data-filter="labs">--labs</button>
       <button class="tab" data-filter="courses">--courses</button>
         <button class="tab" data-filter="media">--media</button>
-      <button class="tab" data-filter="other">--other</button>
-    </div>
+</div>
   </div>
 
   <div class="items" id="items"></div>
@@ -220,7 +217,7 @@
   /* =========================================================
      RESOURCES
      Add new entries here. cat must be one of:
-     'labs', 'courses', 'media', 'other'
+     'labs', 'courses', 'media'
      Set placeholder: true to show a "swap me out" flag on
      entries that still need real details filled in.
      ========================================================= */
@@ -248,15 +245,15 @@
     },      
     {
       cat: 'media',
-      kind: 'Podcast Episode',
-      title: 'Podcast episode (swap this out)',
+      kind: 'media',
+      title: 'Podcast Episode (swap this out)',
       link: '#',
       note: 'Replace with the actual episode title and link once you pick one.',
       placeholder: true,
     },
     {
       cat: 'media',
-      kind: 'TED Talk',
+      kind: 'media',
       title: 'TED Talk (swap this out)',
       link: '#',
       note: 'Replace with the actual talk title and link once you pick one.',
@@ -264,7 +261,7 @@
     },
   ];
 
-  const CAT_INK = { labs: 'var(--labs-ink)', courses: 'var(--courses-ink)', media: 'var(--media-ink)', other: 'var(--other-ink)' };
+  const CAT_INK = { labs: 'var(--labs-ink)', courses: 'var(--courses-ink)', media: 'var(--media-ink)' };
 
   function linkDisplay(url) {
     try {
