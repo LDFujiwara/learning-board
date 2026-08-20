@@ -15,8 +15,8 @@
     --labs-ink: #e2f2e6;
     --courses: #1c4658;
     --courses-ink: #e4edf2;
-    --podcasts: #271c58;
-    --podcasts-ink: #ebe8f5;
+    --media: #271c58;
+    --media-ink: #ebe8f5;
     --other: #541c25;
     --other-ink: #f5e6e8;
   }
@@ -195,15 +195,15 @@
 
   <header class="page-head">
     <h1>learning_board<span class="cursor"></span></h1>
-    <p class="sub">Hands-on labs, courses, and podcasts worth working through.</p>
+    <p class="sub">Hands-on labs, courses, and media worth working through.</p>
   </header>
 
-  <div class="tabs-outer">
+    <div class="tabs-outer">
     <div class="tabs">
       <button class="tab active" data-filter="all">--all</button>
       <button class="tab" data-filter="labs">--labs</button>
       <button class="tab" data-filter="courses">--courses</button>
-      <button class="tab" data-filter="podcasts">--podcasts</button>
+        <button class="tab" data-filter="media">--media</button>
       <button class="tab" data-filter="other">--other</button>
     </div>
   </div>
@@ -220,7 +220,7 @@
   /* =========================================================
      RESOURCES
      Add new entries here. cat must be one of:
-     'labs', 'courses', 'podcasts', 'other'
+     'labs', 'courses', 'media', 'other'
      Set placeholder: true to show a "swap me out" flag on
      entries that still need real details filled in.
      ========================================================= */
@@ -248,16 +248,24 @@
       placeholder: true,
     },
     {
-      cat: 'podcasts',
+      cat: 'media',
       kind: 'Podcast Episode',
       title: 'Podcast episode (swap this out)',
       link: '#',
       note: 'Replace with the actual episode title and link once you pick one.',
       placeholder: true,
     },
+    {
+      cat: 'media',
+      kind: 'TED Talk',
+      title: 'TED Talk (swap this out)',
+      link: '#',
+      note: 'Replace with the actual talk title and link once you pick one.',
+      placeholder: true,
+    },
   ];
 
-  const CAT_INK = { labs: 'var(--labs-ink)', courses: 'var(--courses-ink)', podcasts: 'var(--podcasts-ink)', other: 'var(--other-ink)' };
+  const CAT_INK = { labs: 'var(--labs-ink)', courses: 'var(--courses-ink)', media: 'var(--media-ink)', other: 'var(--other-ink)' };
 
   function linkDisplay(url) {
     try {
