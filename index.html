@@ -243,24 +243,17 @@
       link: 'https://www.edx.org/learn/computer-science/harvard-university-cs50-s-introduction-to-computer-science',
       note: 'Harvard’s legendary intro CS course, free and self-paced. Covers C, Python, SQL, HTML/CSS/JS. Widely considered the gold standard starting point.',
     },      
-    {
-      cat: 'media',
-      kind: 'media',
-      title: 'Podcast Episode (swap this out)',
-      link: '#',
-      note: 'Replace with the actual episode title and link once you pick one.',
-      placeholder: true,
-    },
-    {
-      cat: 'media',
-      kind: 'media',
-      title: 'TED Talk (swap this out)',
-      link: '#',
-      note: 'Replace with the actual talk title and link once you pick one.',
-      placeholder: true,
-    },
-  ];
-
+    { cat: 'courses', kind: 'Language Learning', title: 'LingQ', link: 'https://www.lingq.com', note: 'Supports 50+ languages, including ones most apps skip. Built around reading and listening to real content with vocabulary tracking, not gamified drills.' },
+    { cat: 'courses', kind: 'Credential', title: 'Lean AI Solutions Hackathon with IBM Granite Models', link: 'https://www.credly.com/org/ibm/badge/lean-ai-solutions-hackathon-with-ibm-granite-models', note: 'IBM digital badge for completing a hackathon building lean AI solutions with Granite models.' },
+    { cat: 'courses', kind: 'Course', title: 'Introduction to Prompt Engineering', link: 'https://www.edx.org/learn/artificial-intelligence/ibm-introduction-to-prompt-engineering', note: 'IBM course on edX covering the fundamentals of writing effective prompts for AI models.' },
+    { cat: 'courses', kind: 'Course', title: 'Data Analytics Basics for Everyone', link: 'https://www.edx.org/learn/data-analysis/ibm-data-analytics-basics-for-everyone', note: 'IBM course on edX introducing core data analytics concepts, no prior experience required.' },
+    { cat: 'courses', kind: 'Course', title: 'Business Communication 3', link: 'https://www.edx.org/learn/business-communications/rochester-institute-of-technology-business-communication-3', note: 'RIT course on edX covering professional business communication skills.' },
+    { cat: 'media', kind: 'Podcast', title: 'Daily Cyber Threat Brief', link: 'https://cyberthreatbrief.simplycyber.io/', note: 'Daily rundown of the cybersecurity stories that matter most, hosted live weekday mornings by Dr. Gerald Auger.' },
+    { cat: 'media', kind: 'Podcast', title: 'The Repertoire Podcast', link: 'https://podcasts.apple.com/us/podcast/the-repertoire-podcast/id1225091020', note: 'Chef Justin Khanna interviews hospitality professionals about the skills and lessons that built their careers.' },
+    { cat: 'media', kind: 'TED Talk', title: 'Why AI is an even bigger deal than you think', link: 'https://www.ted.com/talks/reed_hastings_and_sal_khan_why_ai_is_an_even_bigger_deal_than_you_think', note: 'Reed Hastings and Sal Khan on how AI could reshape education and the economy faster than expected.' },
+    { cat: 'media', kind: 'TED Talk', title: 'The wonder of weightlifting', link: 'https://www.ted.com/talks/jaime_seeman_the_wonder_of_weightlifting', note: 'Jaime Seeman on why building muscle is one of the best things you can do for long-term health.' },
+    { cat: 'media', kind: 'TED Talk', title: 'Can I have your brain? The quest for truth on concussions and CTE', link: 'https://www.ted.com/talks/chris_nowinski_can_i_have_your_brain_the_quest_for_truth_on_concussions_and_cte', note: 'Chris Nowinski on chronic traumatic encephalopathy in athletes and his push for brain donation research.' },
+];
   const CAT_INK = { labs: 'var(--labs-ink)', courses: 'var(--courses-ink)', media: 'var(--media-ink)' };
 
   function linkDisplay(url) {
